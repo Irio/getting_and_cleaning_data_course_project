@@ -70,4 +70,4 @@ measurements <- data[, new.columns]
 
 # Write the tidy data set out
 
-write.csv(data, file="../tidydata.csv")
+write.table(data, file="../tidydata.txt", row.name=FALSE)
