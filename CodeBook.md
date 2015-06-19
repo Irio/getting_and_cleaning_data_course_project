@@ -15,6 +15,8 @@ The available variables are the following:
 * **measurement**: What measurement the column `value` will contain.
 * **value**: A number correspondent to `measurement` label.
 
+All values has the unit of frequency of happening, measures re-made at a constant rate of 50 Hz. For more information, check `UCI HAR Dataset/features_info.txt`.
+
 ```
 [1] "fBodyAcc-mean-X"           "fBodyAcc-mean-Y"
 [3] "fBodyAcc-mean-Z"           "fBodyAcc-std-X"
