@@ -18,8 +18,9 @@
 # 5. From the data set in step 4, creates a second, independent tidy data set
 # with the average of each variable for each activity and each subject.
 
-install.packages("dplyr")
+install.packages(c("dplyr", "reshape"))
 library(dplyr)
+library(reshape)
 
 # Download data
 
@@ -66,8 +67,14 @@ data <- rbind(test.data, train.data)
 # Filter measurements of mean and standard deviation
 
 new.columns <- grep("mean\\(|std\\(", names(data))
-measurements <- data[, new.columns]
+observations <- data[, append(c(1, 2), new.columns)]
+
+# Aggregate groups of subject/activity/variable by mean
+
+tidy <- melt(observations, id=c("subject","activity"))
+tidy$variable <- unlist(lapply(tidy$variable, function (x) sub("\\(\\)", "", x)))
+tidy <- aggregate(value ~ subject + activity + variable, data=tidy, mean)
 
 # Write the tidy data set out
 
-write.table(data, file="../tidydata.txt", row.name=FALSE)
+write.table(tidy, file="../tidydata.txt", row.name=FALSE)
