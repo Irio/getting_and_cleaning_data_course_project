@@ -72,8 +72,9 @@ observations <- data[, append(c(1, 2), new.columns)]
 # Aggregate groups of subject/activity/variable by mean
 
 tidy <- melt(observations, id=c("subject","activity"))
-tidy$variable <- unlist(lapply(tidy$variable, function (x) sub("\\(\\)", "", x)))
-tidy <- aggregate(value ~ subject + activity + variable, data=tidy, mean)
+names(tidy)[3] <- "measurement"
+tidy$measurement <- unlist(lapply(tidy$measurement, function (x) sub("\\(\\)", "", x)))
+tidy <- aggregate(value ~ subject + activity + measurement, data=tidy, mean)
 
 # Write the tidy data set out
 
